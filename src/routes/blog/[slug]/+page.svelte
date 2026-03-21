@@ -92,7 +92,8 @@
 	}
 
 	.post-content :global(code) {
-		background: var(--border);
+		background: var(--card-bg);
+		border: 1px solid var(--border);
 		padding: 0.15em 0.4em;
 		font-size: 0.9em;
 	}

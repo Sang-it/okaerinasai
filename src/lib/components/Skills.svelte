@@ -27,7 +27,7 @@
 	.skills-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 0;
+		gap: 1rem;
 	}
 
 	.skill-category {
@@ -38,7 +38,7 @@
 		font-size: var(--text-sm);
 		font-weight: var(--weight-semibold);
 		margin-bottom: 0.75rem;
-		color: var(--accent);
+		color: var(--fg);
 		font-family: var(--font-mono);
 		text-transform: lowercase;
 	}

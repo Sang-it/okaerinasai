@@ -26,7 +26,7 @@
 	.timeline {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0;
 	}
 
 	.timeline-item {
@@ -47,7 +47,7 @@
 
 	.timeline-role {
 		font-weight: var(--weight-bold);
-		font-family: var(--font-sans);
+		font-family: var(--font-mono);
 		font-size: var(--text-base);
 	}
 
@@ -58,7 +58,7 @@
 
 	.timeline-company {
 		font-size: var(--text-sm);
-		color: var(--accent);
+		color: var(--muted);
 		margin: 0;
 		font-family: var(--font-mono);
 	}

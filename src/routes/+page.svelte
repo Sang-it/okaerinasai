@@ -4,7 +4,6 @@
 	import Projects from '$lib/components/Projects.svelte';
 	import Skills from '$lib/components/Skills.svelte';
 	import Experience from '$lib/components/Experience.svelte';
-	import Contact from '$lib/components/Contact.svelte';
 </script>
 
 <Hero />
@@ -16,5 +15,3 @@
 <Skills />
 <hr class="section-divider" />
 <Experience />
-<hr class="section-divider" />
-<Contact />

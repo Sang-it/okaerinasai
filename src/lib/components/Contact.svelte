@@ -54,7 +54,7 @@
 	}
 
 	.contact-content {
-		text-align: center;
+		text-align: left;
 	}
 
 	.contact-content > p {
@@ -63,7 +63,7 @@
 
 	.contact-links {
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		gap: 1rem;
 		flex-wrap: wrap;
 	}

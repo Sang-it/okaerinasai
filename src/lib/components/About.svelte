@@ -16,8 +16,7 @@
 	}
 
 	.about-content {
-		width: 85%;
-		margin: 0 auto;
+		width: 100%;
 	}
 
 	.about-content p {
@@ -25,13 +24,5 @@
 		font-size: var(--text-sm);
 		line-height: 1.7;
 		margin-bottom: 1rem;
-		text-align: justify;
-		hyphens: auto;
-	}
-
-	@media (max-width: 600px) {
-		.about-content {
-			width: 100%;
-		}
 	}
 </style>

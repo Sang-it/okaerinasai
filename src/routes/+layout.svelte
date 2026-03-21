@@ -10,14 +10,23 @@
 	<title>Sangit Manandhar</title>
 </svelte:head>
 
-<Nav />
-<main>
-	{@render children()}
-</main>
+<div class="page-box">
+	<Nav />
+	<main>
+		{@render children()}
+	</main>
+</div>
 <Footer />
 
 <style>
+	.page-box {
+		border-left: 1px solid var(--border);
+		border-right: 1px solid var(--border);
+		padding: 0 2rem 3rem;
+		min-height: calc(100vh - 6rem);
+	}
+
 	main {
-		min-height: calc(100vh - 10rem);
+		min-height: calc(100vh - 14rem);
 	}
 </style>

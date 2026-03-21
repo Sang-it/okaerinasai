@@ -28,7 +28,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 1rem 1.25rem;
-		transition: border-color 0.15s, transform 0.15s;
+		transition: border-color 0.15s;
 		border-bottom: 1px solid var(--border);
 		cursor: pointer;
 		text-decoration: none;
@@ -37,7 +37,6 @@
 
 	.project-card:hover {
 		border-color: var(--accent);
-		transform: translateY(-2px);
 		color: var(--fg);
 	}
 
@@ -51,7 +50,7 @@
 	.card-name {
 		font-weight: var(--weight-bold);
 		font-size: var(--text-base);
-		font-family: var(--font-sans);
+		font-family: var(--font-mono);
 	}
 
 	.project-card:hover .card-name {
@@ -83,7 +82,7 @@
 
 	.card-lang {
 		font-size: var(--text-xs);
-		color: var(--accent);
+		color: var(--muted);
 		font-family: var(--font-mono);
 	}
 
