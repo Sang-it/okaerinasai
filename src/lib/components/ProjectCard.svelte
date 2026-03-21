@@ -1,10 +1,15 @@
 <script lang="ts">
 	import type { Project } from '$lib/data/projects';
+	import { projectDetails } from '$lib/data/project-details';
 
 	let { project }: { project: Project } = $props();
+
+	const hasDetail = project.name in projectDetails;
+	const href = hasDetail ? `/projects/${project.name}` : project.url;
+	const external = !hasDetail;
 </script>
 
-<a href={project.url} target="_blank" rel="noopener noreferrer" class="project-card bordered" class:featured={project.featured}>
+<a {href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class="project-card bordered" class:featured={project.featured}>
 	<div class="card-header">
 		<span class="card-name">{project.name}</span>
 		{#if project.stars && project.stars > 0}
