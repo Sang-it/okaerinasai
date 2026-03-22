@@ -18,7 +18,7 @@ export interface ProjectDetail {
 }
 
 function computePercentages(
-  langs: { name: string; bytes: number }[]
+  langs: { name: string; bytes: number }[],
 ): { name: string; bytes: number; percentage: number }[] {
   const total = langs.reduce((s, l) => s + l.bytes, 0);
   return langs.map((l) => ({
@@ -45,7 +45,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     url: "https://github.com/enfinyte/memory",
     stars: 1,
     forks: 0,
-    loc: "~354k",
+    loc: "~20.2k",
     area: "AI Infrastructure / Memory Systems",
     useCases: [
       "Persistent memory for AI coding agents and assistants",
@@ -85,16 +85,17 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "An LLM routing platform that routes requests to the optimal LLM and provider, built on the OpenResponses API spec. A Bun monorepo using Effect-TS, it supports multiple AI providers (OpenAI, Anthropic, Amazon Bedrock) and includes a web dashboard with authentication.",
     language: "TypeScript",
     languages: computePercentages([
-      { name: "TypeScript", bytes: 722904 },
+      { name: "TypeScript", bytes: 739031 },
       { name: "CSS", bytes: 7679 },
       { name: "Dockerfile", bytes: 2674 },
       { name: "Shell", bytes: 1202 },
       { name: "JavaScript", bytes: 467 },
+      { name: "HCL", bytes: 212 },
     ]),
     url: "https://github.com/enfinyte/router",
     stars: 1,
     forks: 0,
-    loc: "~735k",
+    loc: "~54.8k",
     area: "AI Infrastructure / LLM Operations",
     useCases: [
       "Cost-optimized routing across multiple LLM providers",
@@ -139,12 +140,14 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { name: "C++", bytes: 2023788 },
       { name: "C", bytes: 304249 },
       { name: "CMake", bytes: 23779 },
+      { name: "NASL", bytes: 9319 },
       { name: "Makefile", bytes: 2585 },
+      { name: "Starlark", bytes: 947 },
     ]),
     url: "https://github.com/enfinyte/evenscribe-collector",
     stars: 1,
     forks: 0,
-    loc: "~2.4M",
+    loc: "~92.4k",
     area: "Observability / Logging Infrastructure",
     useCases: [
       "Centralized log collection for distributed systems",
@@ -160,14 +163,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Homebrew installation support",
       "Client libraries for Go, JavaScript/TypeScript, and Rust",
     ],
-    techStack: [
-      "C++",
-      "C",
-      "CMake",
-      "ClickHouse",
-      "PostgreSQL",
-      "Homebrew",
-    ],
+    techStack: ["C++", "C", "CMake", "ClickHouse", "PostgreSQL", "Homebrew"],
     createdAt: "2024-05-02",
     updatedAt: "2024-08-01",
   },
@@ -180,13 +176,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     overview:
       "A structural code editor for Neovim. It provides a floating window to view, reorder, rename, duplicate, delete, and comment top-level code declarations. Supports TypeScript, JavaScript, Python, Lua, Go, Rust, C, and C++ through Treesitter grammars and LSP integration.",
     language: "Lua",
-    languages: computePercentages([
-      { name: "Lua", bytes: 199431 },
-    ]),
+    languages: computePercentages([{ name: "Lua", bytes: 208369 }]),
     url: "https://github.com/Sang-it/fluoride",
     stars: 30,
     forks: 1,
-    loc: "~199k",
+    loc: "~12.3k",
     area: "Developer Tools / Code Navigation",
     useCases: [
       "Structural code navigation in Neovim",
@@ -203,12 +197,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Auto-reload and responsive floating window layout",
       "Installable via lazy.nvim",
     ],
-    techStack: [
-      "Lua",
-      "Neovim API",
-      "Treesitter",
-      "LSP",
-    ],
+    techStack: ["Lua", "Neovim API", "Treesitter", "LSP"],
     createdAt: "2026-03-15",
     updatedAt: "2026-03-20",
   },
@@ -221,13 +210,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     overview:
       "A Nintendo Entertainment System emulator built in Rust on top of SDL2. It emulates the 6502 CPU, PPU (Picture Processing Unit), and cartridge mapper hardware. Based on the 'Writing NES Emulator' ebook by bugzmanov.",
     language: "Rust",
-    languages: computePercentages([
-      { name: "Rust", bytes: 106300 },
-    ]),
+    languages: computePercentages([{ name: "Rust", bytes: 106300 }]),
     url: "https://github.com/Sang-it/nes_emulator",
     stars: 0,
     forks: 0,
-    loc: "~106k",
+    loc: "~4.9k",
     area: "Systems Programming / Emulation",
     useCases: [
       "Learning computer architecture through emulation",
@@ -242,10 +229,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Cartridge mapper hardware support",
       "SDL2-based display and input handling",
     ],
-    techStack: [
-      "Rust",
-      "SDL2",
-    ],
+    techStack: ["Rust", "SDL2"],
     createdAt: "2024-02-05",
     updatedAt: "2024-02-07",
   },
@@ -258,13 +242,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     overview:
       "An over-engineered multi-paradigm toy language with its own ecosystem, built in Rust. Features JavaScript-like syntax with functions, classes, inheritance, and variable declarations. The parser and tree-walking interpreter are fully completed, with planned ByteCode-Interpreter (VM) and LLVM backend. Inspired by the oxc-project.",
     language: "Rust",
-    languages: computePercentages([
-      { name: "Rust", bytes: 271223 },
-    ]),
+    languages: computePercentages([{ name: "Rust", bytes: 271223 }]),
     url: "https://github.com/Sang-it/wave",
     stars: 0,
     forks: 0,
-    loc: "~271k",
+    loc: "~15.3k",
     area: "Programming Languages / Compiler Design",
     useCases: [
       "Learning language implementation from tokenizer to interpreter",
@@ -280,9 +262,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Classes, inheritance, and module system",
       "Planned: ByteCode VM, LLVM backend, Linter, Formatter, LSP",
     ],
-    techStack: [
-      "Rust",
-    ],
+    techStack: ["Rust"],
     createdAt: "2024-01-10",
     updatedAt: "2024-02-16",
   },
@@ -295,13 +275,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     overview:
       "A deep learning framework written in Python using only NumPy — no PyTorch, no TensorFlow. Built as a CS 499 Independent Study project, inspired by the tinygrad project by geohot. Implements neural network primitives from the ground up.",
     language: "Python",
-    languages: computePercentages([
-      { name: "Python", bytes: 125608 },
-    ]),
+    languages: computePercentages([{ name: "Python", bytes: 125608 }]),
     url: "https://github.com/Sang-it/neural_engine",
     stars: 0,
     forks: 0,
-    loc: "~126k",
+    loc: "~7.0k",
     area: "Machine Learning / Deep Learning Frameworks",
     useCases: [
       "Understanding neural network internals without framework abstractions",
@@ -316,10 +294,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Forward and backward pass computation",
       "Inspired by tinygrad architecture",
     ],
-    techStack: [
-      "Python",
-      "NumPy",
-    ],
+    techStack: ["Python", "NumPy"],
     createdAt: "2024-11-27",
     updatedAt: "2024-11-27",
   },
@@ -338,12 +313,14 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { name: "Scala", bytes: 10797 },
       { name: "Elixir", bytes: 9389 },
       { name: "ANTLR", bytes: 2442 },
+      { name: "Hack", bytes: 1037 },
       { name: "Assembly", bytes: 590 },
+      { name: "CMake", bytes: 183 },
     ]),
     url: "https://github.com/Sang-it/nand2tetris",
     stars: 0,
     forks: 0,
-    loc: "~62k",
+    loc: "~3.8k",
     area: "Computer Architecture / From Scratch",
     useCases: [
       "Deep understanding of computer architecture from gates to OS",
@@ -360,14 +337,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Full operating system implementation",
       "Hardware — Boolean logic, ALU, memory, CPU",
     ],
-    techStack: [
-      "Scala",
-      "C++",
-      "Elixir",
-      "C#",
-      "ANTLR",
-      "HDL",
-    ],
+    techStack: ["Scala", "C++", "Elixir", "C#", "ANTLR", "HDL"],
     createdAt: "2024-02-10",
     updatedAt: "2024-05-20",
   },
@@ -380,13 +350,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     overview:
       "A parser generator written in Rust that enables building custom parsers from grammar definitions. It generates parsers from declarative grammar specs, useful for creating domain-specific languages and custom file format parsers.",
     language: "Rust",
-    languages: computePercentages([
-      { name: "Rust", bytes: 13735 },
-    ]),
+    languages: computePercentages([{ name: "Rust", bytes: 13735 }]),
     url: "https://github.com/Sang-it/strings",
     stars: 0,
     forks: 0,
-    loc: "~14k",
+    loc: "~922",
     area: "Parsing / Code Generation",
     useCases: [
       "Generating parsers from grammar definitions",
@@ -400,9 +368,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Rust-based implementation for performance",
       "Declarative grammar specification",
     ],
-    techStack: [
-      "Rust",
-    ],
+    techStack: ["Rust"],
     createdAt: "2024-09-01",
     updatedAt: "2024-09-01",
   },
@@ -423,7 +389,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     url: "https://github.com/Sang-it/scheme._.",
     stars: 0,
     forks: 0,
-    loc: "~23k",
+    loc: "~1.3k",
     area: "Programming Languages / Functional Programming",
     useCases: [
       "Learning functional language implementation in Haskell",
@@ -439,11 +405,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "File evaluation mode",
       "Installable via cabal",
     ],
-    techStack: [
-      "Haskell",
-      "Cabal",
-      "Docker",
-    ],
+    techStack: ["Haskell", "Cabal", "Docker"],
     createdAt: "2023-11-20",
     updatedAt: "2024-01-21",
   },
@@ -463,7 +425,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     url: "https://github.com/Sang-it/t_rex",
     stars: 0,
     forks: 0,
-    loc: "~130k",
+    loc: "~3.7k",
     area: "Formal Languages / Automata Theory",
     useCases: [
       "Learning NFA/DFA construction algorithms",
@@ -478,11 +440,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "String syntax and builder function APIs",
       "Published as npm package (@rux12/t_rex)",
     ],
-    techStack: [
-      "TypeScript",
-      "JavaScript",
-      "npm",
-    ],
+    techStack: ["TypeScript", "JavaScript", "npm"],
     createdAt: "2024-01-07",
     updatedAt: "2024-01-10",
   },
@@ -490,18 +448,15 @@ export const projectDetails: Record<string, ProjectDetail> = {
   brainfuck: {
     slug: "brainfuck",
     name: "brainfuck",
-    description:
-      "Brainfuck interpreter implemented in Haskell with parsing and evaluation.",
+    description: "Brainfuck interpreter implemented in Haskell with parsing and evaluation.",
     overview:
       "A Brainfuck interpreter written in Haskell. A single-file implementation that parses and evaluates Brainfuck programs. Run via GHCi for interactive Brainfuck execution.",
     language: "Haskell",
-    languages: computePercentages([
-      { name: "Haskell", bytes: 2163 },
-    ]),
+    languages: computePercentages([{ name: "Haskell", bytes: 2163 }]),
     url: "https://github.com/Sang-it/brainfuck",
     stars: 0,
     forks: 0,
-    loc: "~2k",
+    loc: "~137",
     area: "Esoteric Languages / Interpreters",
     useCases: [
       "Understanding Turing-complete minimal languages",
@@ -515,10 +470,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Interactive execution via GHCi",
       "Parsing and evaluation pipeline",
     ],
-    techStack: [
-      "Haskell",
-      "GHCi",
-    ],
+    techStack: ["Haskell", "GHCi"],
     createdAt: "2024-05-22",
     updatedAt: "2024-05-22",
   },
@@ -530,13 +482,11 @@ export const projectDetails: Record<string, ProjectDetail> = {
     overview:
       "A JSON parser built in Haskell using parser combinators. Supports both file parsing and interactive JSON string input via REPL. Installable via cabal.",
     language: "Haskell",
-    languages: computePercentages([
-      { name: "Haskell", bytes: 2491 },
-    ]),
+    languages: computePercentages([{ name: "Haskell", bytes: 2491 }]),
     url: "https://github.com/Sang-it/json-parser",
     stars: 0,
     forks: 0,
-    loc: "~2.5k",
+    loc: "~234",
     area: "Parsing / Data Formats",
     useCases: [
       "Learning parser combinator techniques in Haskell",
@@ -550,10 +500,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Full JSON spec parsing",
       "Installable via cabal",
     ],
-    techStack: [
-      "Haskell",
-      "Cabal",
-    ],
+    techStack: ["Haskell", "Cabal"],
     createdAt: "2023-11-25",
     updatedAt: "2023-11-27",
   },
@@ -561,18 +508,15 @@ export const projectDetails: Record<string, ProjectDetail> = {
   sw: {
     slug: "sw",
     name: "sw",
-    description:
-      "CLI tool to switch audio sources from the command line on macOS.",
+    description: "CLI tool to switch audio sources from the command line on macOS.",
     overview:
       "A Python CLI tool for switching between audio input/output devices on macOS with automatic Bluetooth connection support. Features smart device name matching (partial, case-insensitive), auto Bluetooth connection, device listing, and current device display.",
     language: "Python",
-    languages: computePercentages([
-      { name: "Python", bytes: 13211 },
-    ]),
+    languages: computePercentages([{ name: "Python", bytes: 13211 }]),
     url: "https://github.com/Sang-it/sw",
     stars: 4,
     forks: 0,
-    loc: "~13k",
+    loc: "~632",
     area: "CLI Tools / macOS Utilities",
     useCases: [
       "Switching audio devices without opening System Preferences",
@@ -587,12 +531,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Show current active device",
       "Requires blueutil and SwitchAudioSource via Homebrew",
     ],
-    techStack: [
-      "Python",
-      "blueutil",
-      "SwitchAudioSource",
-      "Homebrew",
-    ],
+    techStack: ["Python", "blueutil", "SwitchAudioSource", "Homebrew"],
     createdAt: "2025-09-17",
     updatedAt: "2025-09-17",
   },
@@ -600,18 +539,15 @@ export const projectDetails: Record<string, ProjectDetail> = {
   cws: {
     slug: "cws",
     name: "cws",
-    description:
-      "CS 450 project for automated server setup and configuration management.",
+    description: "CS 450 project for automated server setup and configuration management.",
     overview:
       "A CS 450 course project for automated server setup and configuration management. Built in TypeScript for streamlining server provisioning and deployment workflows.",
     language: "TypeScript",
-    languages: computePercentages([
-      { name: "TypeScript", bytes: 13953 },
-    ]),
+    languages: computePercentages([{ name: "TypeScript", bytes: 13953 }]),
     url: "https://github.com/Sang-it/cws",
     stars: 0,
     forks: 0,
-    loc: "~14k",
+    loc: "~1.8k",
     area: "DevOps / Server Automation",
     useCases: [
       "Automated server provisioning and setup",
@@ -624,9 +560,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Configuration management",
       "TypeScript-based tooling",
     ],
-    techStack: [
-      "TypeScript",
-    ],
+    techStack: ["TypeScript"],
     createdAt: "2025-04-09",
     updatedAt: "2025-04-13",
   },
@@ -634,8 +568,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "xv6-riscv-ext": {
     slug: "xv6-riscv-ext",
     name: "xv6-riscv-ext",
-    description:
-      "xv6-riscv osdev project extended with a C compiler and other utils.",
+    description: "xv6-riscv osdev project extended with a C compiler and other utils.",
     overview:
       "An extended version of xv6, a re-implementation of Dennis Ritchie's and Ken Thompson's Unix Version 6 for modern RISC-V multiprocessors using ANSI C. Extended with a C compiler and additional utilities. Build and run with 'make qemu' using the RISC-V newlib toolchain.",
     language: "C",
@@ -644,11 +577,14 @@ export const projectDetails: Record<string, ProjectDetail> = {
       { name: "Assembly", bytes: 6686 },
       { name: "Makefile", bytes: 5619 },
       { name: "Python", bytes: 5561 },
+      { name: "Linker Script", bytes: 1533 },
+      { name: "Perl", bytes: 808 },
+      { name: "Emacs Lisp", bytes: 86 },
     ]),
     url: "https://github.com/Sang-it/xv6-riscv-ext",
     stars: 0,
     forks: 0,
-    loc: "~316k",
+    loc: "~22.4k",
     area: "Operating Systems / Kernel Development",
     useCases: [
       "Learning OS internals — process scheduling, virtual memory, file systems",
@@ -664,13 +600,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
       "Build and run via 'make qemu'",
       "RISC-V newlib toolchain support",
     ],
-    techStack: [
-      "C",
-      "RISC-V Assembly",
-      "QEMU",
-      "Make",
-      "Python",
-    ],
+    techStack: ["C", "RISC-V Assembly", "QEMU", "Make", "Python"],
     createdAt: "2025-12-03",
     updatedAt: "2025-12-03",
   },
