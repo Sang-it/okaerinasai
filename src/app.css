@@ -119,6 +119,11 @@ a:hover {
 	margin-bottom: 1.5rem;
 }
 
+/* --- Scroll offset for sticky nav --- */
+section[id] {
+	scroll-margin-top: 4rem;
+}
+
 /* --- Subtext --- */
 .subtext {
 	color: var(--muted);

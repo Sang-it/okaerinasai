@@ -1,4 +1,5 @@
 export interface Contribution {
+  slug: string;
   project: string;
   projectDescription: string;
   projectUrl: string;
@@ -19,6 +20,7 @@ export interface Contribution {
 
 export const contributions: Contribution[] = [
   {
+    slug: "rmpc",
     project: "rmpc",
     projectDescription:
       "A modern, configurable, terminal-based MPD client with album art support via various terminal image protocols.",

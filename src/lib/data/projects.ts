@@ -6,6 +6,7 @@ export interface Project {
   stars?: number;
   featured?: boolean;
   tags?: string[];
+  createdAt: string;
 }
 
 export const projects: Project[] = [
@@ -17,6 +18,7 @@ export const projects: Project[] = [
     url: "https://github.com/enfinyte/memory",
     featured: true,
     tags: ["rust", "application"],
+    createdAt: "2025-06-11",
   },
   {
     name: "router",
@@ -26,6 +28,7 @@ export const projects: Project[] = [
     url: "https://github.com/enfinyte/router",
     featured: true,
     tags: ["llm", "routing", "ai-infrastructure"],
+    createdAt: "2026-01-30",
   },
   {
     name: "evenscribe-collector",
@@ -35,6 +38,7 @@ export const projects: Project[] = [
     url: "https://github.com/enfinyte/evenscribe-collector",
     featured: true,
     tags: ["observability", "logging", "clickhouse"],
+    createdAt: "2024-05-02",
   },
   {
     name: "fluoride",
@@ -44,6 +48,7 @@ export const projects: Project[] = [
     url: "https://github.com/Sang-it/fluoride",
     featured: true,
     tags: ["neovim", "treesitter", "lsp", "developer-tools"],
+    createdAt: "2026-03-15",
   },
   {
     name: "nes_emulator",
@@ -53,6 +58,7 @@ export const projects: Project[] = [
     url: "https://github.com/Sang-it/nes_emulator",
     featured: true,
     tags: ["emulation", "systems-programming", "6502"],
+    createdAt: "2024-02-05",
   },
   {
     name: "wave",
@@ -62,6 +68,7 @@ export const projects: Project[] = [
     url: "https://github.com/Sang-it/wave",
     featured: true,
     tags: ["language-design", "interpreter", "compiler"],
+    createdAt: "2024-01-10",
   },
   {
     name: "neural_engine",
@@ -71,6 +78,7 @@ export const projects: Project[] = [
     url: "https://github.com/Sang-it/neural_engine",
     featured: true,
     tags: ["machine-learning", "neural-networks", "numpy"],
+    createdAt: "2024-11-27",
   },
   {
     name: "nand2tetris",
@@ -80,6 +88,7 @@ export const projects: Project[] = [
     language: "Scala / C++ / Elixir / C#",
     url: "https://github.com/Sang-it/nand2tetris",
     tags: ["computer-architecture", "hardware", "from-scratch"],
+    createdAt: "2024-02-10",
   },
   {
     name: "strings",
@@ -88,6 +97,7 @@ export const projects: Project[] = [
     language: "Rust",
     url: "https://github.com/Sang-it/strings",
     tags: ["parsing", "code-generation", "compilers"],
+    createdAt: "2024-09-01",
   },
   {
     name: "scheme._.",
@@ -97,6 +107,7 @@ export const projects: Project[] = [
     featured: true,
     url: "https://github.com/Sang-it/scheme._.",
     tags: ["functional-programming", "interpreter", "scheme"],
+    createdAt: "2023-11-20",
   },
   {
     name: "t_rex",
@@ -105,6 +116,7 @@ export const projects: Project[] = [
     language: "TypeScript",
     url: "https://github.com/Sang-it/t_rex",
     tags: ["automata", "regex", "formal-languages"],
+    createdAt: "2024-01-07",
   },
   {
     name: "brainfuck",
@@ -112,6 +124,7 @@ export const projects: Project[] = [
     language: "Haskell",
     url: "https://github.com/Sang-it/brainfuck",
     tags: ["esoteric-languages", "interpreter"],
+    createdAt: "2024-05-22",
   },
   {
     name: "json-parser",
@@ -119,6 +132,7 @@ export const projects: Project[] = [
     language: "Haskell",
     url: "https://github.com/Sang-it/json-parser",
     tags: ["parsing", "json", "parser-combinators"],
+    createdAt: "2023-11-25",
   },
   {
     name: "sw",
@@ -126,6 +140,7 @@ export const projects: Project[] = [
     language: "Python",
     url: "https://github.com/Sang-it/sw",
     tags: ["cli", "macos", "audio"],
+    createdAt: "2025-09-17",
   },
   {
     name: "cws",
@@ -133,14 +148,15 @@ export const projects: Project[] = [
     language: "TypeScript",
     url: "https://github.com/Sang-it/cws",
     tags: ["devops", "automation", "server-management"],
+    createdAt: "2025-04-09",
   },
-
   {
     name: "xv6-riscv-ext",
     description: "xv6-riscv osdev project extended with a C compiler and other utils.",
     language: "C",
     featured: true,
-    url: " https://github.com/Sang-it/xv6-riscv-ext",
+    url: "https://github.com/Sang-it/xv6-riscv-ext",
     tags: ["operating-system", "kernel"],
+    createdAt: "2025-12-03",
   },
 ];

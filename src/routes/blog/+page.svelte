@@ -3,6 +3,20 @@
 
 	let query = $state('');
 	let sortOrder = $state<'newest' | 'oldest'>('newest');
+	let ready = $state(false);
+
+	$effect(() => {
+		try {
+			const v = localStorage.getItem('sort-blog');
+			if (v === 'oldest') sortOrder = 'oldest';
+		} catch {}
+		ready = true;
+	});
+
+	$effect(() => {
+		if (!ready) return;
+		try { localStorage.setItem('sort-blog', sortOrder); } catch {}
+	});
 
 	let filteredPosts = $derived(() => {
 		const q = query.toLowerCase().trim();
@@ -34,6 +48,7 @@
 	<title>Blog - Sangit Manandhar</title>
 </svelte:head>
 
+{#if ready}
 <section class="blog-page">
 	<h1 class="section-title">Blog</h1>
 
@@ -72,6 +87,7 @@
 		</div>
 	{/if}
 </section>
+{/if}
 
 <style>
 	.blog-page {

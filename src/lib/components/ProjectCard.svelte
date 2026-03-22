@@ -4,12 +4,12 @@
 
 	let { project }: { project: Project } = $props();
 
-	const hasDetail = project.name in projectDetails;
-	const href = hasDetail ? `/projects/${project.name}` : project.url;
-	const external = !hasDetail;
+	let hasDetail = $derived(project.name in projectDetails);
+	let href = $derived(hasDetail ? `/projects/${project.name}` : project.url);
+	let external = $derived(!hasDetail);
 </script>
 
-<a {href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class="project-card bordered" class:featured={project.featured}>
+<a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class="project-card bordered" class:featured={project.featured}>
 	<div class="card-header">
 		<span class="card-name">{project.name}</span>
 		{#if project.stars && project.stars > 0}

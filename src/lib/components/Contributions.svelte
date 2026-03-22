@@ -1,13 +1,48 @@
 <script lang="ts">
 	import { contributions } from '$lib/data/contributions';
+
+	let sortOrder = $state<'newest' | 'oldest'>('newest');
+	let ready = $state(false);
+
+	$effect(() => {
+		try {
+			const v = localStorage.getItem('sort-contributions');
+			if (v === 'oldest') sortOrder = 'oldest';
+		} catch {}
+		ready = true;
+	});
+
+	$effect(() => {
+		if (!ready) return;
+		try { localStorage.setItem('sort-contributions', sortOrder); } catch {}
+	});
+
+	let sortedContributions = $derived(() => {
+		return [...contributions].sort((a, b) => {
+			const dateA = new Date(a.pr.mergedAt).getTime();
+			const dateB = new Date(b.pr.mergedAt).getTime();
+			return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+		});
+	});
 </script>
 
 <section id="contributions" class="contributions-section">
-	<h2 class="section-title">Contributions</h2>
+	<div class="section-header">
+		<h2 class="section-title">Contributions</h2>
+		{#if ready}
+		<button
+			class="sort-btn"
+			onclick={() => sortOrder = sortOrder === 'newest' ? 'oldest' : 'newest'}
+		>
+			{sortOrder === 'newest' ? 'Newest first' : 'Oldest first'}
+		</button>
+		{/if}
+	</div>
 
+	{#if ready}
 	<div class="contributions-list">
-		{#each contributions as contrib}
-			<a href={contrib.pr.url} target="_blank" rel="noopener noreferrer" class="contrib-card bordered">
+		{#each sortedContributions() as contrib}
+			<a href="/contributions/{contrib.slug}" class="contrib-card bordered">
 				<div class="contrib-header">
 					<div class="contrib-project">
 						<span class="contrib-name">{contrib.project}</span>
@@ -22,32 +57,52 @@
 				</div>
 				<p class="contrib-project-desc">{contrib.projectDescription}</p>
 
-				<div class="contrib-pr">
-					<span class="pr-badge">{contrib.pr.state}</span>
-					<span class="pr-title">{contrib.pr.title}</span>
-					<span class="pr-number">#{contrib.pr.number}</span>
-				</div>
-
-				<p class="contrib-overview">{contrib.overview}</p>
-
-				<div class="contrib-meta">
-					<span class="contrib-area">{contrib.area}</span>
-					<span class="contrib-date">{contrib.pr.mergedAt}</span>
-				</div>
-
-				<div class="contrib-tech">
-					{#each contrib.techStack as tech}
-						<span class="contrib-tag">{tech}</span>
-					{/each}
+				<div class="contrib-footer">
+					<div class="contrib-pr">
+						<span class="pr-badge">{contrib.pr.state}</span>
+						<span class="pr-title">{contrib.pr.title}</span>
+						<span class="pr-number">#{contrib.pr.number}</span>
+					</div>
+					<span class="contrib-arrow">&#8599;</span>
 				</div>
 			</a>
 		{/each}
 	</div>
+	{/if}
 </section>
 
 <style>
 	.contributions-section {
 		padding: 1rem 0;
+	}
+
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.section-header .section-title {
+		margin-bottom: 0;
+	}
+
+	.sort-btn {
+		padding: 0.5rem 0.75rem;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: var(--text-sm);
+		cursor: pointer;
+		white-space: nowrap;
+		border-radius: 0;
+		transition: border-color 0.15s, color 0.15s;
+	}
+
+	.sort-btn:hover {
+		border-color: var(--fg);
+		color: var(--fg);
 	}
 
 	.contributions-list {
@@ -108,11 +163,16 @@
 		line-height: 1.5;
 	}
 
+	.contrib-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	.contrib-pr {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		margin-bottom: 0.5rem;
 		flex-wrap: wrap;
 	}
 
@@ -136,41 +196,13 @@
 		color: var(--muted);
 	}
 
-	.contrib-overview {
+	.contrib-arrow {
 		font-size: var(--text-sm);
 		color: var(--muted);
-		line-height: 1.6;
-		margin: 0 0 0.75rem;
+		transition: color 0.15s;
 	}
 
-	.contrib-meta {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 0.75rem;
-	}
-
-	.contrib-area {
-		font-size: var(--text-xs);
-		color: var(--muted);
-	}
-
-	.contrib-date {
-		font-size: var(--text-xs);
-		color: var(--muted);
-	}
-
-	.contrib-tech {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	.contrib-tag {
-		font-size: var(--text-xs);
-		color: var(--muted);
-		padding: 0.2rem 0.5rem;
-		border: 1px solid var(--border);
-		font-family: var(--font-mono);
+	.contrib-card:hover .contrib-arrow {
+		color: var(--accent);
 	}
 </style>
