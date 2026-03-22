@@ -31,27 +31,6 @@
 		line-height: 1.1;
 	}
 
-	.name-first {
-		display: inline-block;
-		animation: slideIn 0.6s ease-out forwards;
-	}
-
-	.name-last {
-		display: inline-block;
-		animation: slideIn 0.6s ease-out 0.1s forwards;
-		opacity: 0;
-	}
-
-	@keyframes slideIn {
-		from {
-			opacity: 0;
-			transform: translateY(8px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
 
 	.hero-title {
 		font-size: var(--text-lg);
