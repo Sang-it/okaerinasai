@@ -30,16 +30,6 @@
 		letter-spacing: -0.03em;
 		line-height: 1.1;
 	}
-
-
-	.hero-title {
-		font-size: var(--text-lg);
-		font-weight: var(--weight-normal);
-		font-family: var(--font-mono);
-		color: var(--muted);
-		margin: 0.75rem 0;
-	}
-
 	.hero-sub {
 		line-height: 1.6;
 	}

@@ -45,9 +45,9 @@
 
 	.footer-bottom {
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
-		padding: 1rem 0;
+		padding: 1rem calc(2rem + 1px);
 		font-size: var(--text-xs);
 		color: var(--muted);
 	}

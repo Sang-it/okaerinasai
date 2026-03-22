@@ -1,8 +1,6 @@
 <script lang="ts">
 	let { data } = $props();
 	const p = data.project;
-
-	const totalBytes = p.languages.reduce((sum: number, l: { bytes: number }) => sum + l.bytes, 0);
 </script>
 
 <svelte:head>

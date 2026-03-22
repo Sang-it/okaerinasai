@@ -1,5 +1,4 @@
 <script lang="ts">
-	import {contacts} from '$lib/data/contacts';
 </script>
 
 <nav>
@@ -83,27 +82,6 @@
 
 	.nav-links li {
 		list-style: none;
-	}
-
-	.nav-cta {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.35rem 0.9rem;
-		background: var(--fg);
-		color: var(--bg);
-		font-family: var(--font-mono);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-medium);
-		border: none;
-		border-bottom: none;
-		cursor: pointer;
-		transition: opacity 0.15s;
-	}
-
-	.nav-cta:hover {
-		opacity: 0.85;
-		color: var(--bg);
-		border-bottom: none;
 	}
 
 	@media (max-width: 600px) {
