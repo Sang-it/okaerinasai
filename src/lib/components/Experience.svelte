@@ -24,9 +24,9 @@
 	}
 
 	.timeline {
-		display: flex;
-		flex-direction: column;
-		gap: 0;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
 	}
 
 	.timeline-item {
