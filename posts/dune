@@ -1,0 +1,18 @@
+(executable
+ (name gen)
+ (modules gen)
+ (libraries omd))
+
+(rule
+ (target posts_data.ml)
+ (deps
+  (glob_files *.md)
+  gen.exe)
+ (action
+  (with-stdout-to
+   posts_data.ml
+   (run ./gen.exe .))))
+
+(library
+ (name posts_data)
+ (modules posts_data))

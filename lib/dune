@@ -1,0 +1,13 @@
+(library
+ (name portfolio)
+ (libraries
+  bonsai
+  bonsai.web
+  bonsai.web_ui_url_var
+  bonsai.uri_parsing
+  posts_data
+  core
+  virtual_dom
+  js_of_ocaml)
+ (preprocess
+  (pps ppx_jane ppx_typed_fields bonsai.ppx_bonsai js_of_ocaml-ppx)))
