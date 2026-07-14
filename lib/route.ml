@@ -40,13 +40,15 @@ let to_path = function
   | Url.Contribution slug -> "/contributions/" ^ slug
 ;;
 
-(* Attributes for an internal SPA link: a real href (so it looks/behaves like a
-   link) plus a click handler that prevents the browser's full navigation and
-   updates the History-backed url_var instead. *)
+let set_effect ?(how = `Push) route = Url_var.set_effect ~how url_var route
+
+let scroll_to_top =
+  Vdom.Effect.of_sync_fun (fun () -> Js_of_ocaml.Dom_html.window##scroll 0 0) ()
+;;
+
 let link_attrs route =
   [ Vdom.Attr.href (to_path route)
   ; Vdom.Attr.on_click (fun _ ->
-      Vdom.Effect.Many
-        [ Vdom.Effect.Prevent_default; Url_var.set_effect ~how:`Push url_var route ])
+      Vdom.Effect.Many [ Vdom.Effect.Prevent_default; set_effect route; scroll_to_top ])
   ]
 ;;

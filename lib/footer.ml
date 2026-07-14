@@ -1,22 +1,17 @@
 open! Core
 open! Bonsai_web
 
-(* Original computes the year via new Date().getFullYear() at render time.
-   For a static build we resolve it once from the JS runtime clock. *)
 let current_year =
   let d = new%js Js_of_ocaml.Js.date_now in
   d##getFullYear
 ;;
 
 let link_box ?(external_ = false) ~href label =
-  let extra =
-    if external_
-    then
-      [ Vdom.Attr.create "target" "_blank"; Vdom.Attr.create "rel" "noopener noreferrer" ]
-    else []
+  let link_attrs =
+    if external_ then Ui.external_link_attrs ~href else [ Vdom.Attr.href href ]
   in
   Vdom.Node.a
-    ~attrs:(Vdom.Attr.class_ "footer-link-box" :: Vdom.Attr.href href :: extra)
+    ~attrs:(Vdom.Attr.class_ "footer-link-box" :: link_attrs)
     [ Vdom.Node.text label ]
 ;;
 

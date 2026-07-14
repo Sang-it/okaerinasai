@@ -1,0 +1,6 @@
+(env
+ (release
+  (js_of_ocaml
+   (compilation_mode whole_program)
+   (flags
+    (:standard --opt 3)))))

@@ -1,9 +1,5 @@
 open! Core
 
-(* Content ported from the SvelteKit app's src/lib/data/*.ts.
-   Dates are kept as ISO "YYYY-MM-DD" strings; ISO dates sort correctly
-   lexicographically, so no date library is needed. *)
-
 module Hero = struct
   type t =
     { greeting : string
@@ -23,7 +19,6 @@ module Hero = struct
     }
   ;;
 
-  (* Hardcoded in Hero.svelte, not part of the data module. *)
   let sub = "I use neovim and dvorak btw."
 end
 
@@ -61,14 +56,12 @@ module Project = struct
     ; description : string
     ; language : string
     ; url : string
-    ; stars : int option
     ; featured : bool
     ; tags : string list
     ; created_at : string
     }
 
   let make
-        ?stars
         ?(featured = false)
         ?(tags = [])
         ~name
@@ -78,7 +71,7 @@ module Project = struct
         ~created_at
         ()
     =
-    { name; description; language; url; stars; featured; tags; created_at }
+    { name; description; language; url; featured; tags; created_at }
   ;;
 end
 
@@ -249,6 +242,10 @@ let projects =
     ]
 ;;
 
+let find_project ~name =
+  List.find projects ~f:(fun (p : Project.t) -> String.equal p.name name)
+;;
+
 module Skill_category = struct
   type t =
     { name : string
@@ -341,31 +338,17 @@ end
 
 let experiences =
   Experience.
-    [ { role = "Undergraduate Researcher"
+    [ { role = "Founding Engineer"
+      ; description = ""
+      ; company = "Tscircuit"
+      ; timeline = "04/2026 - present"
+      }
+    ; { role = "Undergraduate Researcher"
       ; description =
           "Post-Graduate Research Fellow at CogAI Lab, building secure, scalable, \
            containerized infrastructure for AI and software engineering research."
       ; company = "Caldwell University"
       ; timeline = "03/2023 - 12/2025"
-      }
-    ; { role = "Backend Engineer Intern"
-      ; description =
-          "Built and maintained RESTful payment APIs serving 8M+ users and 350,000+ \
-           merchants across Nepal. Implemented payment gateway integrations with HMAC \
-           verification and idempotent processing. Optimized API performance through \
-           query profiling and caching on high-traffic endpoints."
-      ; company = "eSewa"
-      ; timeline = "08/2024 - 02/2025"
-      }
-    ; { role = "Backend Engineer Intern"
-      ; description =
-          "Developed microservices on Kubernetes and Google Cloud powering \
-           ride-matching, food delivery, and courier services across Nepal and \
-           Bangladesh. Built real-time driver matching APIs with geospatial queries on \
-           MongoDB Atlas. Designed order lifecycle services with state machine tracking \
-           and OAuth 2.0-secured merchant APIs."
-      ; company = "Pathao"
-      ; timeline = "04/2025 - 10/2025"
       }
     ]
 ;;

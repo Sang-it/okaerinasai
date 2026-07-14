@@ -37,11 +37,11 @@ Overview, Tech Stack, and a GitHub link. Contribution cards now link internally
 Every route from the original SvelteKit app is now covered: `/`, `/blog`,
 `/blog/:slug`, `/projects/:slug`, `/contributions/:slug`.
 
-Known gaps (all inherent to the client-rendered SPA choice, not regressions):
+Known gap (inherent to the client-rendered SPA choice, not a regression):
 per-route `<title>`/OG meta tags aren't updated dynamically (the original set
 them per page; social-preview crawlers can't run the JS anyway — this was the
-accepted trade-off of the SPA approach), and the in-page nav anchors
-(`/#projects` etc.) navigate to home without smooth-scrolling to the section.
+accepted trade-off of the SPA approach). The nav's Projects/Skills/Experience
+links do SPA navigation to Home and scroll to the section (`Ui.nav_scroll_link`).
 
 ## Prerequisites
 
@@ -63,34 +63,49 @@ opam install bonsai omd js_of_ocaml js_of_ocaml-compiler js_of_ocaml-ppx dune \
 ## Build & run
 
 ```sh
-eval $(opam env)                                # any switch with bonsai + dune (default is fine)
-dune build bin/main.bc.js                       # also runs posts/gen to embed the blog
-python3 serve.py 8099                           # SPA server; open http://localhost:8099/
+eval $(opam env)                          # any switch with bonsai + dune (default is fine)
+dune build static/main.bc.js              # dev bundle, ~25 MB, staged into static/
+python3 serve.py 8099                     # SPA server; open http://localhost:8099/
 ```
 
-`serve.py` serves `/main.bc.js` **straight from `_build/default/bin/`**, so there
-is no copy step to get wrong — and it prints the bundle size at startup, warning
-loudly if it's missing or empty. (An empty `static/main.bc.js` is what makes the
-page render blank with no console error: the browser loads a 0-byte script and
-`#app` never fills in. If you do stage a copy, verify it's ~25 MB, not 0 bytes.)
+Or with [`just`](https://github.com/casey/just): `just build` / `just release` /
+`just watch` / `just serve` / `just fmt` (see the `justfile`).
 
-`dune build` alone type-checks everything; `bin/main.bc.js` produces the browser
-bundle (`js` mode is enabled in `bin/dune`). Use `serve.py` rather than a plain
+Building `static/main.bc.js` runs a **promote rule** (`static/dune`) that compiles
+the bundle and copies it into `static/`, so there's no manual `cp` to get wrong.
+(An empty `static/main.bc.js` is what makes the page render blank with no console
+error — the browser loads a 0-byte script and `#app` never fills in. `serve.py`
+guards against this: it falls back to `_build`, and prints the served bundle size
+at startup.)
+
+**Release build (do this before deploying):**
+
+```sh
+dune build --profile release static/main.bc.js
+```
+
+The `release` profile (`./dune` `env` stanza) turns on js_of_ocaml whole-program
+compilation + `--opt 3`, shrinking the bundle from ~25 MB to **~1 MB**. Dev builds
+stay unoptimized for fast rebuilds (`dune build -w static/main.bc.js`).
+
+`dune build` alone type-checks everything. Use `serve.py` rather than a plain
 static server so client-side routes (`/blog/:slug`, `/projects/:slug`) work on
-deep-link and reload. Asset paths in `index.html` are absolute (`/main.bc.js`,
-`/styles.css`) so they resolve from any route depth.
+deep-link and reload; asset paths in `index.html` are absolute so they resolve
+from any route depth.
 
 ## Layout
 
 ```
 dune-project
 bin/    main.ml        # Bonsai_web.Start.start App.component (entry point)
-lib/    data.ml        # content ported from ../src/lib/data/*.ts
-        route.ml       # Url.t + typed-variant parser + url_var + link helpers
+lib/    data.ml        # content ported from ../src/lib/data/*.ts (single source)
+        route.ml       # Url.t + typed-variant parser + url_var + link/scroll helpers
+        ui.ml          # shared view helpers (links, sections, back-link, sort button…)
+        sort.ml        # Newest|Oldest, sexp-serialized to "newest"/"oldest"
         app.ml         # match%sub router + shared shell (Nav / main / Footer)
         home.ml        # the 6-section homepage stack
         blog_index.ml blog_post.ml                    # blog pages
-        project_details.ml project_detail_page.ml     # /projects/:slug (data + page)
+        project_details.ml project_detail_page.ml     # /projects/:slug (extras + page)
         contribution_detail_page.ml                   # /contributions/:slug
         nav/hero/about/skills/experience/footer.ml   # section views
         projects.ml contributions.ml                 # stateful (sort + localStorage)

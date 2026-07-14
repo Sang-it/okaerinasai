@@ -2,9 +2,6 @@ open! Core
 open! Bonsai_web
 open Bonsai.Let_syntax
 
-(* Routes the History-backed url_var to a page, then wraps every page in the
-   shared shell (page-box with Nav + <main>, and Footer) — mirroring the
-   SvelteKit +layout.svelte which wrapped all routes. *)
 let component =
   let%sub content =
     match%sub Route.value with

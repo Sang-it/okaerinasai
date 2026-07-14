@@ -2,11 +2,7 @@ open! Core
 open! Bonsai_web
 open Bonsai.Let_syntax
 
-let back_link =
-  Vdom.Node.a
-    ~attrs:(Vdom.Attr.class_ "back-link" :: Route.link_attrs Route.Url.Blog)
-    [ Vdom.Node.text "← back to blog" ]
-;;
+let back_link = Ui.back_link ~route:Route.Url.Blog "← back to blog"
 
 let render (p : Posts_data.t) =
   Vdom.Node.create
@@ -33,15 +29,12 @@ let render (p : Posts_data.t) =
 ;;
 
 let not_found slug =
-  Vdom.Node.create
-    "section"
-    ~attrs:[ Vdom.Attr.class_ "blog-post" ]
-    [ back_link
-    ; Vdom.Node.h1 [ Vdom.Node.text "Post not found" ]
-    ; Vdom.Node.p
-        ~attrs:[ Vdom.Attr.class_ "subtext" ]
-        [ Vdom.Node.text (sprintf "No post: %s" slug) ]
-    ]
+  Ui.not_found
+    ~tag:"section"
+    ~class_:"blog-post"
+    ~back:back_link
+    ~title:"Post not found"
+    ~message:(sprintf "No post: %s" slug)
 ;;
 
 let component slug =

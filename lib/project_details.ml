@@ -1,37 +1,27 @@
 open! Core
 
-(* Ported from src/lib/data/project-details.ts. Languages are stored as
-   (name, bytes) pairs; percentages are computed the same way the original
-   computePercentages did: round(bytes/total*1000)/10. *)
-
 type t =
   { slug : string
-  ; name : string
-  ; description : string
   ; overview : string
-  ; language : string
   ; languages : (string * int) list
-  ; url : string
-  ; stars : int
-  ; forks : int
   ; loc : string
   ; area : string
   ; use_cases : string list
   ; features : string list
   ; tech_stack : string list
-  ; created_at : string
-  ; updated_at : string
   }
 
 let percentages langs =
   let total = List.sum (module Int) langs ~f:snd |> Int.to_float in
   List.map langs ~f:(fun (name, bytes) ->
-    let pct = Float.round_nearest (Int.to_float bytes /. total *. 1000.) /. 10. in
+    let pct =
+      if Float.equal total 0.
+      then 0.
+      else Float.round_nearest (Int.to_float bytes /. total *. 1000.) /. 10.
+    in
     name, pct)
 ;;
 
-(* Format like JS number-to-string for one-decimal values: 100.0 -> "100",
-   97.4 -> "97.4", 0.4 -> "0.4". *)
 let pct_str p =
   let s = Printf.sprintf "%.1f" p in
   if String.is_suffix s ~suffix:".0" then String.drop_suffix s 2 else s
@@ -39,20 +29,12 @@ let pct_str p =
 
 let all =
   [ { slug = "memory"
-    ; name = "memory"
-    ; description =
-        "Your memories, reimagined. A personal memory management application built in \
-         Rust."
     ; overview =
         "Enfinyte is a high-performance memory persistence layer built in Rust for LLMs \
          and AI agents. It provides semantic memory storage, retrieval, and search \
          through MCP (Model Context Protocol) and gRPC interfaces — with AI-powered \
          annotation that automatically classifies, tags, and scores memories."
-    ; language = "Rust"
     ; languages = [ "Rust", 342477; "Python", 9108; "Dockerfile", 1368; "Shell", 919 ]
-    ; url = "https://github.com/enfinyte/memory"
-    ; stars = 1
-    ; forks = 0
     ; loc = "~20.2k"
     ; area = "AI Infrastructure / Memory Systems"
     ; use_cases =
@@ -81,20 +63,13 @@ let all =
         ; "WorkOS OAuth"
         ; "Docker"
         ]
-    ; created_at = "2025-06-11"
-    ; updated_at = "2026-01-26"
     }
   ; { slug = "router"
-    ; name = "router"
-    ; description =
-        "An LLM routing platform for intelligently distributing requests across language \
-         model providers."
     ; overview =
         "An LLM routing platform that routes requests to the optimal LLM and provider, \
          built on the OpenResponses API spec. A Bun monorepo using Effect-TS, it \
          supports multiple AI providers (OpenAI, Anthropic, Amazon Bedrock) and includes \
          a web dashboard with authentication."
-    ; language = "TypeScript"
     ; languages =
         [ "TypeScript", 739031
         ; "CSS", 7679
@@ -103,9 +78,6 @@ let all =
         ; "JavaScript", 467
         ; "HCL", 212
         ]
-    ; url = "https://github.com/enfinyte/router"
-    ; stars = 1
-    ; forks = 0
     ; loc = "~54.8k"
     ; area = "AI Infrastructure / LLM Operations"
     ; use_cases =
@@ -135,20 +107,13 @@ let all =
         ; "better-auth"
         ; "HashiCorp Vault"
         ]
-    ; created_at = "2026-01-30"
-    ; updated_at = "2026-03-21"
     }
   ; { slug = "evenscribe-collector"
-    ; name = "evenscribe-collector"
-    ; description =
-        "Log collector for the Evenscribe logging infrastructure. Ingests, processes, \
-         and forwards logs to ClickHouse."
     ; overview =
         "A high-performance log collector for the Evenscribe logging infrastructure. It \
          ingests, processes, and forwards logs to ClickHouse or PostgreSQL backends. \
          Installable via Homebrew with client libraries available for Go, \
          JavaScript/TypeScript, and Rust."
-    ; language = "C++"
     ; languages =
         [ "C++", 2023788
         ; "C", 304249
@@ -157,9 +122,6 @@ let all =
         ; "Makefile", 2585
         ; "Starlark", 947
         ]
-    ; url = "https://github.com/enfinyte/evenscribe-collector"
-    ; stars = 1
-    ; forks = 0
     ; loc = "~92.4k"
     ; area = "Observability / Logging Infrastructure"
     ; use_cases =
@@ -177,24 +139,14 @@ let all =
         ; "Client libraries for Go, JavaScript/TypeScript, and Rust"
         ]
     ; tech_stack = [ "C++"; "C"; "CMake"; "ClickHouse"; "PostgreSQL"; "Homebrew" ]
-    ; created_at = "2024-05-02"
-    ; updated_at = "2024-08-01"
     }
   ; { slug = "fluoride"
-    ; name = "fluoride"
-    ; description =
-        "Neovim plugin that lets you view, reorder, and rename top-level code \
-         declarations through a floating window. Powered by Treesitter and LSP."
     ; overview =
         "A structural code editor for Neovim. It provides a floating window to view, \
          reorder, rename, duplicate, delete, and comment top-level code declarations. \
          Supports TypeScript, JavaScript, Python, Lua, Go, Rust, C, and C++ through \
          Treesitter grammars and LSP integration."
-    ; language = "Lua"
     ; languages = [ "Lua", 208369 ]
-    ; url = "https://github.com/Sang-it/fluoride"
-    ; stars = 30
-    ; forks = 1
     ; loc = "~12.3k"
     ; area = "Developer Tools / Code Navigation"
     ; use_cases =
@@ -213,23 +165,13 @@ let all =
         ; "Installable via lazy.nvim"
         ]
     ; tech_stack = [ "Lua"; "Neovim API"; "Treesitter"; "LSP" ]
-    ; created_at = "2026-03-15"
-    ; updated_at = "2026-03-20"
     }
   ; { slug = "nes_emulator"
-    ; name = "nes_emulator"
-    ; description =
-        "NES emulator written in Rust. Emulates the 6502 CPU, PPU, and cartridge mapper \
-         hardware."
     ; overview =
         "A Nintendo Entertainment System emulator built in Rust on top of SDL2. It \
          emulates the 6502 CPU, PPU (Picture Processing Unit), and cartridge mapper \
          hardware. Based on the 'Writing NES Emulator' ebook by bugzmanov."
-    ; language = "Rust"
     ; languages = [ "Rust", 106300 ]
-    ; url = "https://github.com/Sang-it/nes_emulator"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~4.9k"
     ; area = "Systems Programming / Emulation"
     ; use_cases =
@@ -246,25 +188,15 @@ let all =
         ; "SDL2-based display and input handling"
         ]
     ; tech_stack = [ "Rust"; "SDL2" ]
-    ; created_at = "2024-02-05"
-    ; updated_at = "2024-02-07"
     }
   ; { slug = "wave"
-    ; name = "wave"
-    ; description =
-        "Multi-paradigm programming language implemented in Rust. Supports both \
-         functional and imperative styles."
     ; overview =
         "An over-engineered multi-paradigm toy language with its own ecosystem, built in \
          Rust. Features JavaScript-like syntax with functions, classes, inheritance, and \
          variable declarations. The parser and tree-walking interpreter are fully \
          completed, with planned ByteCode-Interpreter (VM) and LLVM backend. Inspired by \
          the oxc-project."
-    ; language = "Rust"
     ; languages = [ "Rust", 271223 ]
-    ; url = "https://github.com/Sang-it/wave"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~15.3k"
     ; area = "Programming Languages / Compiler Design"
     ; use_cases =
@@ -282,24 +214,14 @@ let all =
         ; "Planned: ByteCode VM, LLVM backend, Linter, Formatter, LSP"
         ]
     ; tech_stack = [ "Rust" ]
-    ; created_at = "2024-01-10"
-    ; updated_at = "2024-02-16"
     }
   ; { slug = "neural_engine"
-    ; name = "neural_engine"
-    ; description =
-        "Neural network engine built from scratch using only NumPy. CS 499 Independent \
-         Study project."
     ; overview =
         "A deep learning framework written in Python using only NumPy — no PyTorch, no \
          TensorFlow. Built as a CS 499 Independent Study project, inspired by the \
          tinygrad project by geohot. Implements neural network primitives from the \
          ground up."
-    ; language = "Python"
     ; languages = [ "Python", 125608 ]
-    ; url = "https://github.com/Sang-it/neural_engine"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~7.0k"
     ; area = "Machine Learning / Deep Learning Frameworks"
     ; use_cases =
@@ -316,21 +238,14 @@ let all =
         ; "Inspired by tinygrad architecture"
         ]
     ; tech_stack = [ "Python"; "NumPy" ]
-    ; created_at = "2024-11-27"
-    ; updated_at = "2024-11-27"
     }
   ; { slug = "nand2tetris"
-    ; name = "nand2tetris"
-    ; description =
-        "A complete computer built from NAND gates up through hardware, assembler \
-         (Scala), VM (C++), compiler (Elixir, C#/ANTLR), and OS."
     ; overview =
         "A full implementation of 'The Elements of Computing Systems' — building a \
          modern computer from NAND gates. All 12 projects completed: Boolean Logic, \
          Boolean Arithmetic, Memory, Machine Language, Computer Architecture, Assembler \
          (Scala), VM Translator (C++), High-Level Language, Compiler (Elixir + \
          C#/ANTLR), and Operating System."
-    ; language = "Scala / C++ / Elixir / C#"
     ; languages =
         [ "C++", 19855
         ; "C#", 18794
@@ -341,9 +256,6 @@ let all =
         ; "Assembly", 590
         ; "CMake", 183
         ]
-    ; url = "https://github.com/Sang-it/nand2tetris"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~3.8k"
     ; area = "Computer Architecture / From Scratch"
     ; use_cases =
@@ -362,23 +274,13 @@ let all =
         ; "Hardware — Boolean logic, ALU, memory, CPU"
         ]
     ; tech_stack = [ "Scala"; "C++"; "Elixir"; "C#"; "ANTLR"; "HDL" ]
-    ; created_at = "2024-02-10"
-    ; updated_at = "2024-05-20"
     }
   ; { slug = "strings"
-    ; name = "strings"
-    ; description =
-        "Parser generator written in Rust for building custom parsers from grammar \
-         definitions."
     ; overview =
         "A parser generator written in Rust that enables building custom parsers from \
          grammar definitions. It generates parsers from declarative grammar specs, \
          useful for creating domain-specific languages and custom file format parsers."
-    ; language = "Rust"
     ; languages = [ "Rust", 13735 ]
-    ; url = "https://github.com/Sang-it/strings"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~922"
     ; area = "Parsing / Code Generation"
     ; use_cases =
@@ -394,23 +296,13 @@ let all =
         ; "Declarative grammar specification"
         ]
     ; tech_stack = [ "Rust" ]
-    ; created_at = "2024-09-01"
-    ; updated_at = "2024-09-01"
     }
   ; { slug = "scheme._."
-    ; name = "scheme._."
-    ; description =
-        "Functional programming language interpreter written in Haskell, implementing a \
-         Scheme dialect."
     ; overview =
         "A Scheme dialect implementation in Haskell. Supports variable declarations, \
          function declarations, and function calls. Runs as an interactive REPL or can \
          evaluate Scheme source files. Installable via cabal."
-    ; language = "Haskell"
     ; languages = [ "Haskell", 20780; "Scheme", 2129; "Dockerfile", 141 ]
-    ; url = "https://github.com/Sang-it/scheme._."
-    ; stars = 0
-    ; forks = 0
     ; loc = "~1.3k"
     ; area = "Programming Languages / Functional Programming"
     ; use_cases =
@@ -428,25 +320,15 @@ let all =
         ; "Installable via cabal"
         ]
     ; tech_stack = [ "Haskell"; "Cabal"; "Docker" ]
-    ; created_at = "2023-11-20"
-    ; updated_at = "2024-01-21"
     }
   ; { slug = "t_rex"
-    ; name = "t_rex"
-    ; description =
-        "NFA/DFA-based regex engine built in TypeScript. Implements Thompson's \
-         construction and subset construction algorithms."
     ; overview =
         "An NFA/DFA-based regex engine built in TypeScript. Published as an npm package \
          (@rux12/t_rex). Supports building regex patterns via string syntax or builder \
          functions. Implements Thompson's construction for NFA building and subset \
          construction for DFA conversion. Inspired by study of Formal Grammar, Chomsky \
          Hierarchy, and Finite State Machines."
-    ; language = "TypeScript"
     ; languages = [ "JavaScript", 113454; "TypeScript", 16206 ]
-    ; url = "https://github.com/Sang-it/t_rex"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~3.7k"
     ; area = "Formal Languages / Automata Theory"
     ; use_cases =
@@ -463,22 +345,13 @@ let all =
         ; "Published as npm package (@rux12/t_rex)"
         ]
     ; tech_stack = [ "TypeScript"; "JavaScript"; "npm" ]
-    ; created_at = "2024-01-07"
-    ; updated_at = "2024-01-10"
     }
   ; { slug = "brainfuck"
-    ; name = "brainfuck"
-    ; description =
-        "Brainfuck interpreter implemented in Haskell with parsing and evaluation."
     ; overview =
         "A Brainfuck interpreter written in Haskell. A single-file implementation that \
          parses and evaluates Brainfuck programs. Run via GHCi for interactive Brainfuck \
          execution."
-    ; language = "Haskell"
     ; languages = [ "Haskell", 2163 ]
-    ; url = "https://github.com/Sang-it/brainfuck"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~137"
     ; area = "Esoteric Languages / Interpreters"
     ; use_cases =
@@ -494,20 +367,12 @@ let all =
         ; "Parsing and evaluation pipeline"
         ]
     ; tech_stack = [ "Haskell"; "GHCi" ]
-    ; created_at = "2024-05-22"
-    ; updated_at = "2024-05-22"
     }
   ; { slug = "json-parser"
-    ; name = "json-parser"
-    ; description = "JSON parser written in Haskell using parser combinators."
     ; overview =
         "A JSON parser built in Haskell using parser combinators. Supports both file \
          parsing and interactive JSON string input via REPL. Installable via cabal."
-    ; language = "Haskell"
     ; languages = [ "Haskell", 2491 ]
-    ; url = "https://github.com/Sang-it/json-parser"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~234"
     ; area = "Parsing / Data Formats"
     ; use_cases =
@@ -523,22 +388,14 @@ let all =
         ; "Installable via cabal"
         ]
     ; tech_stack = [ "Haskell"; "Cabal" ]
-    ; created_at = "2023-11-25"
-    ; updated_at = "2023-11-27"
     }
   ; { slug = "sw"
-    ; name = "sw"
-    ; description = "CLI tool to switch audio sources from the command line on macOS."
     ; overview =
         "A Python CLI tool for switching between audio input/output devices on macOS \
          with automatic Bluetooth connection support. Features smart device name \
          matching (partial, case-insensitive), auto Bluetooth connection, device \
          listing, and current device display."
-    ; language = "Python"
     ; languages = [ "Python", 13211 ]
-    ; url = "https://github.com/Sang-it/sw"
-    ; stars = 4
-    ; forks = 0
     ; loc = "~632"
     ; area = "CLI Tools / macOS Utilities"
     ; use_cases =
@@ -555,22 +412,13 @@ let all =
         ; "Requires blueutil and SwitchAudioSource via Homebrew"
         ]
     ; tech_stack = [ "Python"; "blueutil"; "SwitchAudioSource"; "Homebrew" ]
-    ; created_at = "2025-09-17"
-    ; updated_at = "2025-09-17"
     }
   ; { slug = "cws"
-    ; name = "cws"
-    ; description =
-        "CS 450 project for automated server setup and configuration management."
     ; overview =
         "A CS 450 course project for automated server setup and configuration \
          management. Built in TypeScript for streamlining server provisioning and \
          deployment workflows."
-    ; language = "TypeScript"
     ; languages = [ "TypeScript", 13953 ]
-    ; url = "https://github.com/Sang-it/cws"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~1.8k"
     ; area = "DevOps / Server Automation"
     ; use_cases =
@@ -585,18 +433,13 @@ let all =
         ; "TypeScript-based tooling"
         ]
     ; tech_stack = [ "TypeScript" ]
-    ; created_at = "2025-04-09"
-    ; updated_at = "2025-04-13"
     }
   ; { slug = "xv6-riscv-ext"
-    ; name = "xv6-riscv-ext"
-    ; description = "xv6-riscv osdev project extended with a C compiler and other utils."
     ; overview =
         "An extended version of xv6, a re-implementation of Dennis Ritchie's and Ken \
          Thompson's Unix Version 6 for modern RISC-V multiprocessors using ANSI C. \
          Extended with a C compiler and additional utilities. Build and run with 'make \
          qemu' using the RISC-V newlib toolchain."
-    ; language = "C"
     ; languages =
         [ "C", 297385
         ; "Assembly", 6686
@@ -606,9 +449,6 @@ let all =
         ; "Perl", 808
         ; "Emacs Lisp", 86
         ]
-    ; url = "https://github.com/Sang-it/xv6-riscv-ext"
-    ; stars = 0
-    ; forks = 0
     ; loc = "~22.4k"
     ; area = "Operating Systems / Kernel Development"
     ; use_cases =
@@ -626,8 +466,6 @@ let all =
         ; "RISC-V newlib toolchain support"
         ]
     ; tech_stack = [ "C"; "RISC-V Assembly"; "QEMU"; "Make"; "Python" ]
-    ; created_at = "2025-12-03"
-    ; updated_at = "2025-12-03"
     }
   ]
 ;;

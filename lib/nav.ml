@@ -18,21 +18,9 @@ let view =
         ~attrs:[ Vdom.Attr.class_ "nav-right" ]
         [ Vdom.Node.ul
             ~attrs:[ Vdom.Attr.class_ "nav-links" ]
-            [ Vdom.Node.li
-                [ Vdom.Node.a
-                    ~attrs:[ Vdom.Attr.href "/#projects" ]
-                    [ Vdom.Node.text "Projects" ]
-                ]
-            ; Vdom.Node.li
-                [ Vdom.Node.a
-                    ~attrs:[ Vdom.Attr.href "/#skills" ]
-                    [ Vdom.Node.text "Skills" ]
-                ]
-            ; Vdom.Node.li
-                [ Vdom.Node.a
-                    ~attrs:[ Vdom.Attr.href "/#experience" ]
-                    [ Vdom.Node.text "Experience" ]
-                ]
+            [ Vdom.Node.li [ Ui.nav_scroll_link ~id:"projects" "Projects" ]
+            ; Vdom.Node.li [ Ui.nav_scroll_link ~id:"skills" "Skills" ]
+            ; Vdom.Node.li [ Ui.nav_scroll_link ~id:"experience" "Experience" ]
             ; Vdom.Node.li
                 [ Vdom.Node.a
                     ~attrs:(Route.link_attrs Route.Url.Blog)

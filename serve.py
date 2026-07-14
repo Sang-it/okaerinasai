@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-"""Static server for the Bonsai SPA.
-
-- Serves /main.bc.js straight from the dune build output (_build/default/bin/)
-  when it exists, so you never have to copy the 25 MB bundle into static/.
-  Falls back to static/main.bc.js otherwise.
-- Falls back to index.html for unknown paths, so client-side routes like
-  /blog/:slug and /projects/:slug work on reload / deep-link.
-- Warns loudly at startup if the bundle it would serve is missing or empty
-  (an empty bundle is what makes the page render blank with no error).
-"""
-
 import http.server, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -20,7 +9,6 @@ PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8099
 
 
 def bundle_path():
-    """Prefer the freshly built bundle; fall back to the staged copy."""
     if os.path.exists(BUNDLE_BUILD) and os.path.getsize(BUNDLE_BUILD) > 0:
         return BUNDLE_BUILD
     return BUNDLE_STATIC
@@ -31,7 +19,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*a, directory=ROOT, **k)
 
     def do_GET(self):
-        # Serve the JS bundle from wherever a non-empty copy exists.
         if self.path.split("?")[0] in ("/main.bc.js", "/main.bc.js/"):
             b = bundle_path()
             if os.path.exists(b) and os.path.getsize(b) > 0:
@@ -44,7 +31,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 return
         path = self.translate_path(self.path)
         if not os.path.exists(path) or os.path.isdir(path):
-            # unknown route -> serve the SPA shell
             if not (
                 os.path.isdir(path) and os.path.exists(os.path.join(path, "index.html"))
             ):

@@ -2,16 +2,8 @@ open! Core
 open! Bonsai_web
 open Bonsai.Let_syntax
 
-let store =
-  Bonsai_web.Persistent_var.create
-    (module String)
-    `Local_storage
-    ~unique_id:"sort-blog"
-    ~default:"newest"
-;;
+let store = Ui.make_sort_store ~unique_id:"sort-blog"
 
-(* Fuzzy match: every char of [query] appears in [title], in order (both
-   lowercased). Mirrors the SvelteKit blog's subsequence search. *)
 let subsequence ~query title =
   let q = String.lowercase (String.strip query) in
   if String.is_empty q
@@ -77,10 +69,7 @@ let component =
   let%sub query_state = Bonsai.state (module String) ~default_model:"" in
   let%arr query, set_query = query_state
   and sort = Bonsai_web.Persistent_var.value store in
-  let newest = String.equal sort "newest" in
-  let next = if newest then "oldest" else "newest" in
-  let label = if newest then "Newest first" else "Oldest first" in
-  let posts = filtered ~query ~newest in
+  let posts = filtered ~query ~newest:(Sort.is_newest sort) in
   let body =
     if List.is_empty Posts_data.posts
     then
@@ -115,13 +104,7 @@ let component =
                 ; Vdom.Attr.on_input (fun _ s -> set_query s)
                 ]
               ()
-          ; Vdom.Node.button
-              ~attrs:
-                [ Vdom.Attr.class_ "sort-btn"
-                ; Vdom.Attr.on_click (fun _ ->
-                    Bonsai_web.Persistent_var.effect store next)
-                ]
-              [ Vdom.Node.text label ]
+          ; Ui.sort_button store sort
           ]
      :: body)
 ;;

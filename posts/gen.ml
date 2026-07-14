@@ -1,10 +1,3 @@
-(* Build-time generator (stdlib + omd only).
-   Reads every *.md in the given directory, parses YAML-ish frontmatter
-   (title/date/description), converts the markdown body to HTML with omd, and
-   prints an OCaml module embedding the posts. Invoked by a dune rule; the
-   resulting Posts_data module is compiled into the app so there is no runtime
-   file IO in the browser. *)
-
 let read_file path =
   let ic = open_in_bin path in
   let n = in_channel_length ic in
@@ -24,14 +17,13 @@ let unquote s =
   else s
 ;;
 
-(* returns (metadata assoc, body) *)
 let parse_frontmatter content =
   let lines = String.split_on_char '\n' content in
   match lines with
   | first :: rest when String.equal (String.trim first) "---" ->
     let rec collect meta = function
-      | [] -> meta, []
-      | l :: tl when String.equal (String.trim l) "---" -> meta, tl
+      | [] -> None
+      | l :: tl when String.equal (String.trim l) "---" -> Some (meta, tl)
       | l :: tl ->
         let meta =
           match String.index_opt l ':' with
@@ -43,8 +35,9 @@ let parse_frontmatter content =
         in
         collect meta tl
     in
-    let meta, body_lines = collect [] rest in
-    List.rev meta, String.concat "\n" body_lines
+    (match collect [] rest with
+     | Some (meta, body_lines) -> List.rev meta, String.concat "\n" body_lines
+     | None -> [], content)
   | _ -> [], content
 ;;
 
