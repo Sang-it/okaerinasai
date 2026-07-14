@@ -10,14 +10,13 @@ let category_view (category : Data.Skill_category.t) =
     ; Vdom.Node.div
         ~attrs:[ Vdom.Attr.class_ "skill-tags" ]
         (List.map category.items ~f:(fun item ->
-           Vdom.Node.span
-             ~attrs:[ Vdom.Attr.class_ "skill-tag" ]
-             [ Vdom.Node.text item ]))
+           Vdom.Node.span ~attrs:[ Vdom.Attr.class_ "skill-tag" ] [ Vdom.Node.text item ]))
     ]
 ;;
 
 let view =
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.id "skills"; Vdom.Attr.class_ "skills-section" ]
     [ Vdom.Node.h2 ~attrs:[ Vdom.Attr.class_ "section-title" ] [ Vdom.Node.text "Skills" ]
     ; Vdom.Node.div

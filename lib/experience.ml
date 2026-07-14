@@ -23,7 +23,8 @@ let item_view (exp : Data.Experience.t) =
 ;;
 
 let view =
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.id "experience"; Vdom.Attr.class_ "experience-section" ]
     [ Vdom.Node.h2
         ~attrs:[ Vdom.Attr.class_ "section-title" ]

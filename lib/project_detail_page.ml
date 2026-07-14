@@ -11,7 +11,8 @@ let meta_item ~label ~value =
 ;;
 
 let section ~title children =
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.class_ "section" ]
     (Vdom.Node.h2 [ Vdom.Node.text title ] :: children)
 ;;
@@ -43,7 +44,9 @@ let render (p : Project_details.t) =
       (List.map pcts ~f:(fun (name, pct) ->
          Vdom.Node.div
            ~attrs:[ Vdom.Attr.class_ "lang-item" ]
-           [ Vdom.Node.span ~attrs:[ Vdom.Attr.class_ "lang-name" ] [ Vdom.Node.text name ]
+           [ Vdom.Node.span
+               ~attrs:[ Vdom.Attr.class_ "lang-name" ]
+               [ Vdom.Node.text name ]
            ; Vdom.Node.span
                ~attrs:[ Vdom.Attr.class_ "lang-pct" ]
                [ Vdom.Node.text (Project_details.pct_str pct ^ "%") ]
@@ -55,14 +58,18 @@ let render (p : Project_details.t) =
       (List.map p.tech_stack ~f:(fun t ->
          Vdom.Node.span ~attrs:[ Vdom.Attr.class_ "tag" ] [ Vdom.Node.text t ]))
   in
-  Vdom.Node.create "article"
+  Vdom.Node.create
+    "article"
     ~attrs:[ Vdom.Attr.class_ "project-detail" ]
-    [ Vdom.Node.create "header"
+    [ Vdom.Node.create
+        "header"
         [ Vdom.Node.a
             ~attrs:(Vdom.Attr.class_ "back-link" :: Route.link_attrs Route.Url.Home)
             [ Vdom.Node.text "← back to projects" ]
         ; Vdom.Node.h1 [ Vdom.Node.text p.name ]
-        ; Vdom.Node.p ~attrs:[ Vdom.Attr.class_ "description" ] [ Vdom.Node.text p.description ]
+        ; Vdom.Node.p
+            ~attrs:[ Vdom.Attr.class_ "description" ]
+            [ Vdom.Node.text p.description ]
         ]
     ; Vdom.Node.div
         ~attrs:[ Vdom.Attr.class_ "meta-row" ]
@@ -71,8 +78,12 @@ let render (p : Project_details.t) =
         ; meta_item ~label:"loc" ~value:p.loc
         ; meta_item ~label:"created" ~value:p.created_at
         ]
-    ; section ~title:"Overview"
-        [ Vdom.Node.p ~attrs:[ Vdom.Attr.class_ "body-text" ] [ Vdom.Node.text p.overview ] ]
+    ; section
+        ~title:"Overview"
+        [ Vdom.Node.p
+            ~attrs:[ Vdom.Attr.class_ "body-text" ]
+            [ Vdom.Node.text p.overview ]
+        ]
     ; section ~title:"Languages" [ lang_bar; lang_list ]
     ; section ~title:"Features" [ detail_list p.features ]
     ; section ~title:"Use Cases" [ detail_list p.use_cases ]
@@ -91,7 +102,8 @@ let render (p : Project_details.t) =
 ;;
 
 let not_found slug =
-  Vdom.Node.create "article"
+  Vdom.Node.create
+    "article"
     ~attrs:[ Vdom.Attr.class_ "project-detail" ]
     [ Vdom.Node.a
         ~attrs:(Vdom.Attr.class_ "back-link" :: Route.link_attrs Route.Url.Home)

@@ -53,13 +53,19 @@ let card (c : Data.Contribution.t) =
         ~attrs:[ Vdom.Attr.class_ "contrib-footer" ]
         [ Vdom.Node.div
             ~attrs:[ Vdom.Attr.class_ "contrib-pr" ]
-            [ Vdom.Node.span ~attrs:[ Vdom.Attr.class_ "pr-badge" ] [ Vdom.Node.text c.pr.state ]
-            ; Vdom.Node.span ~attrs:[ Vdom.Attr.class_ "pr-title" ] [ Vdom.Node.text c.pr.title ]
+            [ Vdom.Node.span
+                ~attrs:[ Vdom.Attr.class_ "pr-badge" ]
+                [ Vdom.Node.text c.pr.state ]
+            ; Vdom.Node.span
+                ~attrs:[ Vdom.Attr.class_ "pr-title" ]
+                [ Vdom.Node.text c.pr.title ]
             ; Vdom.Node.span
                 ~attrs:[ Vdom.Attr.class_ "pr-number" ]
                 [ Vdom.Node.text ("#" ^ Int.to_string c.pr.number) ]
             ]
-        ; Vdom.Node.span ~attrs:[ Vdom.Attr.class_ "contrib-arrow" ] [ Vdom.Node.text "↗" ]
+        ; Vdom.Node.span
+            ~attrs:[ Vdom.Attr.class_ "contrib-arrow" ]
+            [ Vdom.Node.text "↗" ]
         ]
     ]
 ;;
@@ -69,7 +75,8 @@ let component =
   let newest = String.equal sort "newest" in
   let next = if newest then "oldest" else "newest" in
   let label = if newest then "Newest first" else "Oldest first" in
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.id "contributions"; Vdom.Attr.class_ "contributions-section" ]
     [ Vdom.Node.div
         ~attrs:[ Vdom.Attr.class_ "section-header" ]
@@ -79,8 +86,7 @@ let component =
         ; Vdom.Node.button
             ~attrs:
               [ Vdom.Attr.class_ "sort-btn"
-              ; Vdom.Attr.on_click (fun _ ->
-                  Bonsai_web.Persistent_var.effect store next)
+              ; Vdom.Attr.on_click (fun _ -> Bonsai_web.Persistent_var.effect store next)
               ]
             [ Vdom.Node.text label ]
         ]

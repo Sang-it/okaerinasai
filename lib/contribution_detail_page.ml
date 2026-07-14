@@ -11,7 +11,8 @@ let meta_item ~label ~value =
 ;;
 
 let section ~title children =
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.class_ "section" ]
     (Vdom.Node.h2 [ Vdom.Node.text title ] :: children)
 ;;
@@ -28,9 +29,11 @@ let with_commas n =
 ;;
 
 let render (c : Data.Contribution.t) =
-  Vdom.Node.create "article"
+  Vdom.Node.create
+    "article"
     ~attrs:[ Vdom.Attr.class_ "contrib-detail" ]
-    [ Vdom.Node.create "header"
+    [ Vdom.Node.create
+        "header"
         [ Vdom.Node.a
             ~attrs:(Vdom.Attr.class_ "back-link" :: Route.link_attrs Route.Url.Home)
             [ Vdom.Node.text "← back to contributions" ]
@@ -46,7 +49,8 @@ let render (c : Data.Contribution.t) =
         ; meta_item ~label:"stars" ~value:(with_commas c.project_stars)
         ; meta_item ~label:"merged" ~value:c.pr.merged_at
         ]
-    ; section ~title:"Pull Request"
+    ; section
+        ~title:"Pull Request"
         [ Vdom.Node.div
             ~attrs:[ Vdom.Attr.class_ "pr-info" ]
             [ Vdom.Node.span
@@ -70,9 +74,14 @@ let render (c : Data.Contribution.t) =
             ~attrs:[ Vdom.Attr.class_ "body-text" ]
             [ Vdom.Node.text c.pr.description ]
         ]
-    ; section ~title:"Overview"
-        [ Vdom.Node.p ~attrs:[ Vdom.Attr.class_ "body-text" ] [ Vdom.Node.text c.overview ] ]
-    ; section ~title:"Tech Stack"
+    ; section
+        ~title:"Overview"
+        [ Vdom.Node.p
+            ~attrs:[ Vdom.Attr.class_ "body-text" ]
+            [ Vdom.Node.text c.overview ]
+        ]
+    ; section
+        ~title:"Tech Stack"
         [ Vdom.Node.div
             ~attrs:[ Vdom.Attr.class_ "tags" ]
             (List.map c.tech_stack ~f:(fun t ->
@@ -92,7 +101,8 @@ let render (c : Data.Contribution.t) =
 ;;
 
 let not_found slug =
-  Vdom.Node.create "article"
+  Vdom.Node.create
+    "article"
     ~attrs:[ Vdom.Attr.class_ "contrib-detail" ]
     [ Vdom.Node.a
         ~attrs:(Vdom.Attr.class_ "back-link" :: Route.link_attrs Route.Url.Home)

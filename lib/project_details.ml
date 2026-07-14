@@ -49,8 +49,7 @@ let all =
          through MCP (Model Context Protocol) and gRPC interfaces — with AI-powered \
          annotation that automatically classifies, tags, and scores memories."
     ; language = "Rust"
-    ; languages =
-        [ "Rust", 342477; "Python", 9108; "Dockerfile", 1368; "Shell", 919 ]
+    ; languages = [ "Rust", 342477; "Python", 9108; "Dockerfile", 1368; "Shell", 919 ]
     ; url = "https://github.com/enfinyte/memory"
     ; stars = 1
     ; forks = 0
@@ -73,8 +72,15 @@ let all =
         ; "Document ingestion from PDFs and websites"
         ]
     ; tech_stack =
-        [ "Rust"; "Qdrant"; "pgvector"; "gRPC / Protobuf"; "MCP (Model Context Protocol)"
-        ; "Cloudflare Workers AI"; "WorkOS OAuth"; "Docker" ]
+        [ "Rust"
+        ; "Qdrant"
+        ; "pgvector"
+        ; "gRPC / Protobuf"
+        ; "MCP (Model Context Protocol)"
+        ; "Cloudflare Workers AI"
+        ; "WorkOS OAuth"
+        ; "Docker"
+        ]
     ; created_at = "2025-06-11"
     ; updated_at = "2026-01-26"
     }
@@ -90,8 +96,13 @@ let all =
          a web dashboard with authentication."
     ; language = "TypeScript"
     ; languages =
-        [ "TypeScript", 739031; "CSS", 7679; "Dockerfile", 2674; "Shell", 1202
-        ; "JavaScript", 467; "HCL", 212 ]
+        [ "TypeScript", 739031
+        ; "CSS", 7679
+        ; "Dockerfile", 2674
+        ; "Shell", 1202
+        ; "JavaScript", 467
+        ; "HCL", 212
+        ]
     ; url = "https://github.com/enfinyte/router"
     ; stars = 1
     ; forks = 0
@@ -113,8 +124,17 @@ let all =
         ; "Ledger system for usage tracking"
         ]
     ; tech_stack =
-        [ "Bun"; "TypeScript"; "Effect-TS"; "Vercel AI SDK"; "SolidJS"; "Hono"
-        ; "PostgreSQL"; "Kysely"; "better-auth"; "HashiCorp Vault" ]
+        [ "Bun"
+        ; "TypeScript"
+        ; "Effect-TS"
+        ; "Vercel AI SDK"
+        ; "SolidJS"
+        ; "Hono"
+        ; "PostgreSQL"
+        ; "Kysely"
+        ; "better-auth"
+        ; "HashiCorp Vault"
+        ]
     ; created_at = "2026-01-30"
     ; updated_at = "2026-03-21"
     }
@@ -130,8 +150,13 @@ let all =
          JavaScript/TypeScript, and Rust."
     ; language = "C++"
     ; languages =
-        [ "C++", 2023788; "C", 304249; "CMake", 23779; "NASL", 9319; "Makefile", 2585
-        ; "Starlark", 947 ]
+        [ "C++", 2023788
+        ; "C", 304249
+        ; "CMake", 23779
+        ; "NASL", 9319
+        ; "Makefile", 2585
+        ; "Starlark", 947
+        ]
     ; url = "https://github.com/enfinyte/evenscribe-collector"
     ; stars = 1
     ; forks = 0
@@ -300,15 +325,22 @@ let all =
         "A complete computer built from NAND gates up through hardware, assembler \
          (Scala), VM (C++), compiler (Elixir, C#/ANTLR), and OS."
     ; overview =
-        "A full implementation of 'The Elements of Computing Systems' — building a modern \
-         computer from NAND gates. All 12 projects completed: Boolean Logic, Boolean \
-         Arithmetic, Memory, Machine Language, Computer Architecture, Assembler (Scala), \
-         VM Translator (C++), High-Level Language, Compiler (Elixir + C#/ANTLR), and \
-         Operating System."
+        "A full implementation of 'The Elements of Computing Systems' — building a \
+         modern computer from NAND gates. All 12 projects completed: Boolean Logic, \
+         Boolean Arithmetic, Memory, Machine Language, Computer Architecture, Assembler \
+         (Scala), VM Translator (C++), High-Level Language, Compiler (Elixir + \
+         C#/ANTLR), and Operating System."
     ; language = "Scala / C++ / Elixir / C#"
     ; languages =
-        [ "C++", 19855; "C#", 18794; "Scala", 10797; "Elixir", 9389; "ANTLR", 2442
-        ; "Hack", 1037; "Assembly", 590; "CMake", 183 ]
+        [ "C++", 19855
+        ; "C#", 18794
+        ; "Scala", 10797
+        ; "Elixir", 9389
+        ; "ANTLR", 2442
+        ; "Hack", 1037
+        ; "Assembly", 590
+        ; "CMake", 183
+        ]
     ; url = "https://github.com/Sang-it/nand2tetris"
     ; stars = 0
     ; forks = 0
@@ -498,10 +530,10 @@ let all =
     ; name = "sw"
     ; description = "CLI tool to switch audio sources from the command line on macOS."
     ; overview =
-        "A Python CLI tool for switching between audio input/output devices on macOS with \
-         automatic Bluetooth connection support. Features smart device name matching \
-         (partial, case-insensitive), auto Bluetooth connection, device listing, and \
-         current device display."
+        "A Python CLI tool for switching between audio input/output devices on macOS \
+         with automatic Bluetooth connection support. Features smart device name \
+         matching (partial, case-insensitive), auto Bluetooth connection, device \
+         listing, and current device display."
     ; language = "Python"
     ; languages = [ "Python", 13211 ]
     ; url = "https://github.com/Sang-it/sw"
@@ -566,8 +598,14 @@ let all =
          qemu' using the RISC-V newlib toolchain."
     ; language = "C"
     ; languages =
-        [ "C", 297385; "Assembly", 6686; "Makefile", 5619; "Python", 5561
-        ; "Linker Script", 1533; "Perl", 808; "Emacs Lisp", 86 ]
+        [ "C", 297385
+        ; "Assembly", 6686
+        ; "Makefile", 5619
+        ; "Python", 5561
+        ; "Linker Script", 1533
+        ; "Perl", 808
+        ; "Emacs Lisp", 86
+        ]
     ; url = "https://github.com/Sang-it/xv6-riscv-ext"
     ; stars = 0
     ; forks = 0

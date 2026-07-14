@@ -43,8 +43,8 @@ let filtered ~query ~newest =
   Posts_data.posts
   |> List.filter ~f:(fun (p : Posts_data.t) -> subsequence ~query p.title)
   |> List.sort ~compare:(fun (a : Posts_data.t) b ->
-       let c = String.compare a.date b.date in
-       if newest then -c else c)
+    let c = String.compare a.date b.date in
+    if newest then -c else c)
 ;;
 
 let post_card (p : Posts_data.t) =
@@ -100,7 +100,8 @@ let component =
           (List.map posts ~f:post_card)
       ]
   in
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.class_ "blog-page" ]
     (Vdom.Node.h1 ~attrs:[ Vdom.Attr.class_ "section-title" ] [ Vdom.Node.text "Blog" ]
      :: Vdom.Node.div
@@ -117,7 +118,8 @@ let component =
           ; Vdom.Node.button
               ~attrs:
                 [ Vdom.Attr.class_ "sort-btn"
-                ; Vdom.Attr.on_click (fun _ -> Bonsai_web.Persistent_var.effect store next)
+                ; Vdom.Attr.on_click (fun _ ->
+                    Bonsai_web.Persistent_var.effect store next)
                 ]
               [ Vdom.Node.text label ]
           ]

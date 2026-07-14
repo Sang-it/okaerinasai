@@ -24,7 +24,8 @@ let component =
   let newest = String.equal sort "newest" in
   let next = if newest then "oldest" else "newest" in
   let label = if newest then "Newest first" else "Oldest first" in
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.id "projects"; Vdom.Attr.class_ "projects-section" ]
     [ Vdom.Node.div
         ~attrs:[ Vdom.Attr.class_ "section-header" ]
@@ -34,8 +35,7 @@ let component =
         ; Vdom.Node.button
             ~attrs:
               [ Vdom.Attr.class_ "sort-btn"
-              ; Vdom.Attr.on_click (fun _ ->
-                  Bonsai_web.Persistent_var.effect store next)
+              ; Vdom.Attr.on_click (fun _ -> Bonsai_web.Persistent_var.effect store next)
               ]
             [ Vdom.Node.text label ]
         ]

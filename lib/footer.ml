@@ -11,7 +11,8 @@ let current_year =
 let link_box ?(external_ = false) ~href label =
   let extra =
     if external_
-    then [ Vdom.Attr.create "target" "_blank"; Vdom.Attr.create "rel" "noopener noreferrer" ]
+    then
+      [ Vdom.Attr.create "target" "_blank"; Vdom.Attr.create "rel" "noopener noreferrer" ]
     else []
   in
   Vdom.Node.a
@@ -28,7 +29,8 @@ let link_box_route ~route label =
 let view =
   let hero = Data.Hero.value in
   let contacts = Data.Contacts.value in
-  Vdom.Node.create "footer"
+  Vdom.Node.create
+    "footer"
     [ Vdom.Node.div
         ~attrs:[ Vdom.Attr.class_ "footer-links-row" ]
         [ link_box ~external_:true ~href:contacts.github "GitHub"

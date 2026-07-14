@@ -9,9 +9,11 @@ let back_link =
 ;;
 
 let render (p : Posts_data.t) =
-  Vdom.Node.create "article"
+  Vdom.Node.create
+    "article"
     ~attrs:[ Vdom.Attr.class_ "blog-post" ]
-    [ Vdom.Node.create "header"
+    [ Vdom.Node.create
+        "header"
         ~attrs:[ Vdom.Attr.class_ "post-header" ]
         [ back_link
         ; Vdom.Node.h1 [ Vdom.Node.text p.title ]
@@ -31,7 +33,8 @@ let render (p : Posts_data.t) =
 ;;
 
 let not_found slug =
-  Vdom.Node.create "section"
+  Vdom.Node.create
+    "section"
     ~attrs:[ Vdom.Attr.class_ "blog-post" ]
     [ back_link
     ; Vdom.Node.h1 [ Vdom.Node.text "Post not found" ]
