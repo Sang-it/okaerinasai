@@ -1,4 +1,2 @@
 _build/
-# Built JS bundle is copied here for local serving; it's a large build artifact.
-static/main.bc.js
 .omc/

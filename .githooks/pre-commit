@@ -1,0 +1,23 @@
+#!/bin/sh
+eval "$(opam env 2>/dev/null)"
+if ! command -v dune >/dev/null 2>&1; then
+    echo "pre-commit: dune not found in PATH — run 'eval \$(opam env)' before committing." >&2
+    exit 1
+fi
+
+if ! dune build --profile release static/main.bc.js; then
+    echo "pre-commit: release build failed." >&2
+    exit 1
+fi
+
+built=$(git hash-object static/main.bc.js)
+staged=$(git ls-files -s -- static/main.bc.js | awk '{print $2}')
+
+if [ "$built" != "$staged" ]; then
+    echo "pre-commit: static/main.bc.js is out of date with the source." >&2
+    echo "  the release build produced a bundle different from the staged one." >&2
+    echo "  run:  git add static/main.bc.js   then commit again." >&2
+    exit 1
+fi
+
+exit 0
